@@ -51,6 +51,7 @@ SOME_BUSY = [
     'оставь меня, старушка, я в печали...',
     'напомни потом тебе на это ответить, сейчас мне некогда.'
 ]
+HTML = "<!DOCTYPE html>"
 
 # Словарь для хранения истории разговоров
 conversation_history = {}
@@ -77,7 +78,8 @@ def ask_gpt(chat_history):
             logger.error(f'Сбой в работе модели {model_choise.name}: {reason}')
             response = None
         try_count -= 1
-
+    if response[:len(HTML)] == HTML:
+        logger.warning(f'{model_choise.name}: {model_choise}')
     logger.info(f'{model_choise.name}: "{response}"')
     return response
 
